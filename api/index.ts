@@ -1,9 +1,10 @@
 import express from 'express';
 import cors, {CorsOptions} from 'cors';
 import * as mongoose from 'mongoose';
+import linksRouter from './routers/links';
 
 const app = express();
-const port = 8003;
+const port = 8000;
 
 const whitelist = ['http://localhost:8000', 'http://localhost:5173'];
 const corsOptions: CorsOptions = {
@@ -18,6 +19,7 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use('/links', linksRouter);
 
 const run = async () => {
   await mongoose.connect('mongodb://localhost/link');

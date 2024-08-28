@@ -1,6 +1,7 @@
 import express from 'express';
 import Link from '../models/Link';
 import {LinkMutation} from '../types';
+import mongoose from 'mongoose';
 
 const linksRouter = express.Router();
 
@@ -39,7 +40,11 @@ linksRouter.post('/links', async (req, res, next) => {
 
     return res.send(link);
   } catch (error) {
-    next(error);
+    if (error instanceof mongoose.Error.ValidationError) {
+      return res.status(400).send(error);
+    }
+
+    return next(error);
   }
 });
 
