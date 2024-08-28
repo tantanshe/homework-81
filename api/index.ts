@@ -19,7 +19,7 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/links', linksRouter);
+app.use('/', linksRouter);
 
 const run = async () => {
   await mongoose.connect('mongodb://localhost/link');
